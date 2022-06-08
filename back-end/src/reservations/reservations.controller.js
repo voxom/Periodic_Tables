@@ -115,8 +115,20 @@ function hasValidDate(req, res, next) {
       message: `reservation_date is invalid`
     })
   }
+  if (day === 2) {
+    return next({
+      status: 400,
+      message: `The restaurant is closed on Tuesday.`,
+    });
+  }
   if (res.locals.reservation) {
     return next()
+  }
+  if (dateInput < today) {
+    return next({
+      status: 400,
+      message: `Reservations can't be in the past. Please pick a future date.`,
+    });
   }
   next()
 }
