@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { listReservations } from "../utils/api";
+import { listTables } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import useQuery from "../utils/useQuery";
-import { previous, next, today } from "../utils/date-time"
+import { previous, next, today } from "../utils/date-time";
 import { useHistory } from "react-router";
 import Reservations from "../reservations/Reservations";
-import cooking from '../images/cooking-bg.jpg'
-import '../layout/Layout'
+import TableList from "../tables/TableList";
+import cooking from "../images/cooking-bg.jpg";
+import "../layout/Layout";
 
 /**
  * Defines the dashboard page.
@@ -15,13 +17,22 @@ import '../layout/Layout'
  * @returns {JSX.Element}
  */
 function Dashboard() {
-  const query = useQuery()
-  const history = useHistory()
+  const query = useQuery();
+  const history = useHistory();
   const [reservations, setReservations] = useState([]);
   const [error, setError] = useState(null);
-  const [date, setDate] = useState(query.get("date") || today())
+  const [tables, setTables] = useState([]);
+  const [date, setDate] = useState(query.get("date") || today());
 
-  useEffect(loadDashboard, [date])
+  useEffect(loadDashboard, [date]);
+  useEffect(loadTables, []);
+
+  function loadTables() {
+    const abortController = new AbortController();
+    setError(null);
+    listTables(abortController.signal).then(setTables).catch(setError);
+    return () => abortController.abort();
+  }
 
   function loadDashboard() {
     const abortController = new AbortController();
@@ -33,27 +44,35 @@ function Dashboard() {
   }
 
   function handleDateChange({ target }) {
-    setDate(target.value)
-    history.push(`dashboard?date=${target.value}`)
+    setDate(target.value);
+    history.push(`dashboard?date=${target.value}`);
   }
 
   function handlePreviousDate() {
-    setDate(previous(date))
-    history.push(`dashboard?date=${previous(date)}`)
+    setDate(previous(date));
+    history.push(`dashboard?date=${previous(date)}`);
   }
   function handleNextDate() {
-    setDate(next(date))
-    history.push(`dashboard?date=${next(date)}`)
+    setDate(next(date));
+    history.push(`dashboard?date=${next(date)}`);
   }
   function handleToday() {
-    setDate(today())
-    history.push(`dashboard?date=${today()}`)
+    setDate(today());
+    history.push(`dashboard?date=${today()}`);
   }
   return (
     <main>
-      <div id="header" className="flex flex-col justify-center lg:flex-row items-center p-4 bg-teal-500 ">
+      <div
+        id="header"
+        className="flex flex-col justify-center lg:flex-row items-center p-4 bg-teal-500 "
+      >
         <label htmlFor="reservation_date">
-          <h1 id="header-text" className="text-4xl sm:text-4xl m-1 font-bold text-white">Current Date:</h1>
+          <h1
+            id="header-text"
+            className="text-4xl sm:text-4xl m-1 font-bold text-white"
+          >
+            Current Date:
+          </h1>
         </label>
         <input
           className="text-2xl md:text-2xl font-bold text-teal-700 border-2 border-teal-500 rounded-3xl p-2 m-2 mx-4"
@@ -93,7 +112,10 @@ function Dashboard() {
       >
         <ErrorAlert error={error} />
         <Reservations reservations={reservations} />
-        <h2 className="font-bold text-center text-teal-700 text-3xl md:text-5xl m-4">TABLES</h2>
+        <h2 className="font-bold text-center text-teal-700 text-3xl md:text-5xl m-4">
+          TABLES
+        </h2>
+        <TableList tables={tables} />
       </div>
     </main>
   );
