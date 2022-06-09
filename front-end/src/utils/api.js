@@ -105,6 +105,17 @@ export async function updateReservation(reservation, signal) {
   return await fetchJson(url, options, reservation);
 }
 
+export async function cancelReservation(reservationId, signal) {
+  const url = `${API_BASE_URL}/reservations/${reservationId}/status`;
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({ data: { status: "cancelled" } }),
+    signal,
+  };
+  return await fetchJson(url, options);
+}
+
 export async function listTables(signal) {
   const url = `${API_BASE_URL}/tables`;
   return await fetchJson(url, { signal });
@@ -128,6 +139,14 @@ export async function updateTable(reservationId, tableId, signal) {
     headers,
     body: JSON.stringify({ data: { reservation_id: reservationId } }),
     signal,
+  };
+  return await fetchJson(url, options);
+}
+
+export async function deleteTable(tableId) {
+  const url = `${API_BASE_URL}/tables/${tableId}/seat`;
+  const options = {
+    method: "DELETE",
   };
   return await fetchJson(url, options);
 }
