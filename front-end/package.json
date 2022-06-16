@@ -8,6 +8,10 @@
     "url": "https://github.com/Thinkful-Ed/starter-restaurant-reservation",
     "directory": "/front-end"
   },
+  "engines":{
+    "npm": "8.1.0",
+    "node": "16.13.0"
+  },
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
