@@ -36,19 +36,19 @@ Has the following features:
 * Heroku
 
 ## Dashboard
-![dashboard](/front-end/images/Dashboard.png)
+![dashboard](/front-end/images/Dashboard.PNG)
 
 ## New Reservation
-![new-reservation](/front-end/images/NewReservation.png)
+![new-reservation](/front-end/images/NewReservation.PNG)
 
 ## Search By Phone Number
-![search-phone](/front-end/images/SearchPhone.png)
+![search-phone](/front-end/images/SearchPhone.PNG)
 
 ## New Table
-![new-table](/front-end/images/NewTable.png)
+![new-table](/front-end/images/NewTable.PNG)
 
 ## Seat Reservation
-![seat-reservation](/front-end/images/SeatReservation.png)
+![seat-reservation](/front-end/images/SeatReservation.PNG)
 
 ## Documentation for API 
 | Route                                | Description                                        | Methods |
