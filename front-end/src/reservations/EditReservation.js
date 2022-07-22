@@ -6,11 +6,11 @@ import {
 } from "../utils/api";
 import { useParams, useHistory } from "react-router";
 import ErrorAlert from "../layout/ErrorAlert";
-import Form from "../form/Form";
+import ReservationForm from "./ReservationForm";
 import cooking from "../images/cooking-bg.jpg";
 const dayjs = require("dayjs");
 
-export default function NewEditReservation() {
+export default function EditReservation() {
   const initialFormState = {
     first_name: "",
     last_name: "",
@@ -90,18 +90,11 @@ export default function NewEditReservation() {
       style={{ backgroundImage: `url(${cooking})` }}
       className="w-full h-full min-h-screen bg-no-repeat bg-cover bg-top"
     >
-      {reservationId ? (
-        <h2 className="font-bold text-teal-700 text-center text-3xl md:text-5xl mx-2 p-3">
-          Edit Reservation
-        </h2>
-      ) : (
-        <h2 className="font-bold text-teal-700 text-center text-3xl md:text-5xl mx-2 p-3">
-          Create a Reservation
-        </h2>
-      )}
+      <h2 className="font-bold text-teal-700 text-center text-3xl md:text-5xl mx-2 p-3">
+        Edit Reservation
+      </h2>
       <ErrorAlert error={error} />
-      <Form
-        whichForm={"general"}
+      <ReservationForm
         handleSubmit={handleSubmit}
         handleNumber={handleNumber}
         handleChange={handleChange}
