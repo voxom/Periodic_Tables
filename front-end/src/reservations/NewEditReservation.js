@@ -6,7 +6,7 @@ import {
 } from "../utils/api";
 import { useParams, useHistory } from "react-router";
 import ErrorAlert from "../layout/ErrorAlert";
-import ReservationForm from "./ReservationForm";
+import Form from "../form/Form";
 import cooking from "../images/cooking-bg.jpg";
 const dayjs = require("dayjs");
 
@@ -100,7 +100,8 @@ export default function NewEditReservation() {
         </h2>
       )}
       <ErrorAlert error={error} />
-      <ReservationForm
+      <Form
+        whichForm={"general"}
         handleSubmit={handleSubmit}
         handleNumber={handleNumber}
         handleChange={handleChange}

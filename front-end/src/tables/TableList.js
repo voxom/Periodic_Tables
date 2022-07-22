@@ -6,8 +6,8 @@ export default function TableList({ tables }) {
     <>
       {tables && (
         <div className="flex flex-col sm:flex-row sm:justify-center gap-6 flex-wrap p-4">
-          {tables.map((table, index) => (
-            <Table table={table} key={index} />
+          {tables.map((table) => (
+            <Table table={table} key={table.table_name} />
           ))}
         </div>
       )}
