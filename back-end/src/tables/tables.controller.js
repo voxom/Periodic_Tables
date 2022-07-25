@@ -24,13 +24,12 @@ const hasRequireUpdateProperties = hasProperties("reservation_id");
 async function tableExists(req, res, next) {
   const { table_id } = req.params;
   let table;
-   try { 
+  try {
     table = await service.read(table_id);
-   } 
-   catch (error) { 
+  } catch (error) {
     throw new Error(error);
   }
-  
+
   if (table) {
     res.locals.table = table;
     return next();
@@ -39,7 +38,6 @@ async function tableExists(req, res, next) {
     status: 404,
     message: `Table cannot be found ${table_id}`,
   });
-
 }
 
 function hasData(req, res, next) {
@@ -85,22 +83,15 @@ function hasCapacity(req, res, next) {
   next();
 }
 
-
 async function reservationExists(req, res, next) {
   const { reservation_id } = req.body.data;
-  let reservation;
-  try {
-    reservation = await reservationsService.read(reservation_id);
-  }
-  catch (error) {
-    throw new Error(error);
-  }
   if (!reservation_id) {
     return next({
       status: 400,
       message: `a reservation_id is required`,
     });
   }
+  const reservation = await reservationsService.read(reservation_id);
   if (reservation) {
     res.locals.reservation = reservation;
     return next();
